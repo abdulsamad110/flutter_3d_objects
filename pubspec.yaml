@@ -1,6 +1,6 @@
 name: flutter_3d_objects
 description: "A new Flutter package project."
-version: 0.0.1
+version: 1.0.0
 homepage:
 
 environment:
@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  vector_math: any
+  path:
 
 dev_dependencies:
   flutter_test:
