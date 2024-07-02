@@ -49,14 +49,14 @@ class Camera {
     Vector3 moveDirection = Vector3(delta.x, delta.y, 0);
     final double angle = moveDirection.length;
     if (angle > 0) {
-      Vector3 _eye = position - target;
-      Vector3 eyeDirection = _eye.normalized();
+      Vector3 eye = position - target;
+      Vector3 eyeDirection = eye.normalized();
       Vector3 upDirection = up.normalized();
       Vector3 sidewaysDirection = upDirection.cross(eyeDirection).normalized();
       upDirection.scale(delta.y);
       sidewaysDirection.scale(delta.x);
       moveDirection = upDirection + sidewaysDirection;
-      Vector3 axis = moveDirection.cross(_eye).normalized();
+      Vector3 axis = moveDirection.cross(eye).normalized();
       Quaternion q = Quaternion.axisAngle(axis, angle);
       q.rotate(position);
       q.rotate(up);

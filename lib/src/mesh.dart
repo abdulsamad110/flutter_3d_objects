@@ -26,10 +26,11 @@ class Polygon {
 
 // wolcy97: 2020-01-31
 int _getVertexIndex(String vIndex) {
-  if (int.parse(vIndex) < 0)
+  if (int.parse(vIndex) < 0) {
     return int.parse(vIndex) + 1;
-  else
+  } else {
     return int.parse(vIndex) - 1;
+  }
 }
 
 class Mesh {
@@ -178,7 +179,7 @@ Future<List<Mesh>> _buildMesh(
   String basePath,
   bool isAsset,
 ) async {
-  if (elementOffsets.length == 0) {
+  if (elementOffsets.isEmpty) {
     elementNames.add('');
     elementMaterials.add('');
     elementOffsets.add(0);
@@ -364,7 +365,7 @@ Future<Image?> packingTexture(List<Mesh> meshes) async {
   // if there is only one texture then return the texture directly.
   meshes = textures.values.toList();
   if (meshes.length == 1) return meshes[0].texture;
-  if (meshes.length == 0) return null;
+  if (meshes.isEmpty) return null;
 
   // packing
   double area = 0;
@@ -422,7 +423,7 @@ Future<Image?> packingTexture(List<Mesh> meshes) async {
       final int length = imageWidth * imageHeight;
       pixels = Uint32List(length);
       // color mode then set texture to transparent.
-      final int color = 0; //mesh.material == null ? 0 : toColor(mesh.material.kd.bgr, mesh.material.d).value;
+      const int color = 0; //mesh.material == null ? 0 : toColor(mesh.material.kd.bgr, mesh.material.d).value;
       for (int i = 0; i < length; i++) {
         pixels[i] = color;
       }

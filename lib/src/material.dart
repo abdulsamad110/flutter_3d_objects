@@ -40,7 +40,7 @@ class Material {
 /// Reference：http://paulbourke.net/dataformats/mtl/
 ///
 Future<Map<String, Material>> loadMtl(String fileName, {bool isAsset = true}) async {
-  final materials = Map<String, Material>();
+  final materials = <String, Material>{};
   String data;
   try {
     if (isAsset) {
@@ -127,13 +127,13 @@ Future<Map<String, Material>> loadMtl(String fileName, {bool isAsset = true}) as
 /// load an image from asset
 Future<Image> loadImageFromAsset(String fileName, {bool isAsset = true}) {
   final c = Completer<Image>();
-  var dataFuture;
+  var futureData;
   if (isAsset) {
-    dataFuture = rootBundle.load(fileName).then((data) => data.buffer.asUint8List());
+    futureData = rootBundle.load(fileName).then((data) => data.buffer.asUint8List());
   } else {
-    dataFuture = File(fileName).readAsBytes();
+    futureData = File(fileName).readAsBytes();
   }
-  dataFuture.then((data) {
+  futureData.then((data) {
     instantiateImageCodec(data).then((codec) {
       codec.getNextFrame().then((frameInfo) {
         c.complete(frameInfo.image);
@@ -156,7 +156,7 @@ Future<MapEntry<String, Image>?> loadTexture(Material? material, String basePath
   // try to load image from asset in subdirectories
   Image? image;
   final List<String> dirList = fileName.split(RegExp(r'[/\\]+'));
-  while (dirList.length > 0) {
+  while (dirList.isNotEmpty) {
     fileName = path.join(basePath, path.joinAll(dirList));
     try {
       image = await loadImageFromAsset(fileName, isAsset: isAsset);

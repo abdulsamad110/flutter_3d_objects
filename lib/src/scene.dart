@@ -11,8 +11,8 @@ typedef ObjectCreatedCallback = void Function(Object object);
 
 class Scene {
   Scene({VoidCallback? onUpdate, ObjectCreatedCallback? onObjectCreated}) {
-    this._onUpdate = onUpdate;
-    this._onObjectCreated = onObjectCreated;
+    _onUpdate = onUpdate;
+    _onObjectCreated = onObjectCreated;
     world = Object(scene: this);
   }
 
@@ -253,7 +253,7 @@ class Scene {
       final Polygon? p = rawIndices[i];
       if (p != null) renderIndices.add(p);
     }
-    if (renderIndices.length == 0) return;
+    if (renderIndices.isEmpty) return;
 
     // sort the faces by z
     renderIndices.sort((Polygon a, Polygon b) {
@@ -288,7 +288,7 @@ class Scene {
 
     final paint = Paint();
     if (renderMesh.texture != null) {
-      Float64List matrix4 = new Matrix4.identity().storage;
+      Float64List matrix4 = Matrix4.identity().storage;
       final shader = ImageShader(renderMesh.texture!, TileMode.mirror, TileMode.mirror, matrix4);
       paint.shader = shader;
     }
