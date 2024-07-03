@@ -33,34 +33,25 @@
       - **Listener:** Updates the pallet's rotation and refreshes the scene on each animation frame.
   - **Labels** The _shouldShowLabels method determines if the labels should be shown based on the pallet's rotation. The _buildLabels method creates the label widgets and positions them on the screen. The _calculateScreenPosition method calculates the screen position for each label based on its 3D position.
   - **Object** In the context of flutter_cube, an Object represents a 3D model or a group of 3D models. An Object can have properties such as position, scale, rotation, and it can be composed of other child objects. Here’s an example of how an Object is created and added to the scene:
-  ```
-  _pallet = Object(
-  position: Vector3(0, -2.5, 0),
-  scale: Vector3(4, 4, 4),
-  fileName: 'assets/pallet.obj',
-  children: [
-    Object(
-      fileName: 'assets/carton.obj',
-      position: Vector3(0.25, 0.15, 0),
-      scale: Vector3(0.8, 0.8, 0.8),
-    ),
-    Object(
-      fileName: 'assets/carton.obj',
-      position: Vector3(-0.25, 0.15, 0),
-      scale: Vector3(0.8, 0.8, 0.8),
-    ),
-    Object(
-      fileName: 'assets/carton1.obj',
-      position: Vector3(0.25, 0.58, 0),
-      scale: Vector3(0.8, 0.8, 0.8),
-    ),
-    Object(
-      fileName: 'assets/carton2.obj',
-      position: Vector3(-0.25, 0.58, 0),
-      scale: Vector3(0.8, 0.8, 0.8),
-    ),
-  ]
-  );
+  ``` dart
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Cube(
+          onSceneCreated: (Scene scene) {
+            scene.world.add(
+            Object(
+            fileName: 'assets/carton.obj',
+            position: Vector3(1, 1, 1),
+            scale: Vector3(1, 1, 1),
+            ),
+            );
+          },
+        ),
+      ),
+    );
+  }
   ```
   - **Vector3** Vector3 is a class representing a 3-dimensional vector. It is used to define the position, scale, and rotation of objects in the 3D space. Each Vector3 instance has three components: x, y, and z.
       - **Position:** Defines where the object is located in the 3D space.
