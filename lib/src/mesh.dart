@@ -350,15 +350,15 @@ List<Mesh> normalizeMesh(List<Mesh> meshes) {
 Future<Image?> packingTexture(List<Mesh> meshes) async {
   // generate a key for a mesh.
   String getMeshKey(Mesh mesh) {
-    if (mesh.texture != null) return mesh.texturePath ?? '' + mesh.textureRect.toString();
+    if (mesh.texture != null) return mesh.texturePath ?? '${mesh.textureRect}';
     return toColor(mesh.material.diffuse.bgr).toString();
   }
 
   // only pack the different textures.
   final allMeshes = meshes;
-  final textures = Map<String, Mesh>();
+  final textures = <String, Mesh>{};
   for (Mesh mesh in allMeshes) {
-    if (mesh.vertices.length == 0) continue;
+    if (mesh.vertices.isEmpty) continue;
     final String key = getMeshKey(mesh);
     textures.putIfAbsent(key, () => mesh);
   }

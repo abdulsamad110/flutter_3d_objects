@@ -1,39 +1,69 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+**[Flutter 3D Objects]**
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+**Purpose:** A component for the selection of languages. This widget is designed to display a selectable language option with an image and title. It visually indicates whether the option is selected or not.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+**Features:**
+- Displays a 3D model of a pallet with cartons.
+- Allows rotating the model left or right.
+- Shows labels for the cartons when viewed from specific angles.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+**How to use this**
+  - Add dependency in pubspec.yaml
+  ```yaml
+  dependencies:
+   flutter:
+    sdk: flutter
+  flutter_3d_objects:
+  ```
+  - Add 3D Models in assets, file type should be .obj
+  ```yaml
+  flutter:
+  assets:
+  - assets/pallet.obj
+  - assets/carton.obj
+  ```
+  - Use the PalletViewer widget in your application, In PalletViewer we have a Cube, and we add different objects in the scene of the Cube, Cube can have many Childrens.
+  - **Scene Creation** The _onSceneCreated method initializes the scene, sets up the camera position, and adds the pallet and cartons to the scene. Here's a breakdown of this method:
+      - **Camera Position:** Sets the initial position of the camera.
+      - **Pallet Object:** Creates the pallet object and adds child objects (cartons) to it.
+      - **Labels:** Adds labels for the cartons to a list for later display.
+  - **Rotation** The rotateLeft and rotateRight methods animate the rotation of the pallet. The _animateRotation method uses an AnimationController and a Tween to smoothly rotate the pallet:
+      - **AnimationController:** Manages the timing of the animation.
+      - **Tween:** Defines the start and end values for the animation.
+      - **Listener:** Updates the pallet's rotation and refreshes the scene on each animation frame.
+  - **Labels** The _shouldShowLabels method determines if the labels should be shown based on the pallet's rotation. The _buildLabels method creates the label widgets and positions them on the screen. The _calculateScreenPosition method calculates the screen position for each label based on its 3D position.
+  - **Object** In the context of flutter_cube, an Object represents a 3D model or a group of 3D models. An Object can have properties such as position, scale, rotation, and it can be composed of other child objects. Here’s an example of how an Object is created and added to the scene:
+  ```
+  _pallet = Object(
+  position: Vector3(0, -2.5, 0),
+  scale: Vector3(4, 4, 4),
+  fileName: 'assets/pallet.obj',
+  children: [
+    Object(
+      fileName: 'assets/carton.obj',
+      position: Vector3(0.25, 0.15, 0),
+      scale: Vector3(0.8, 0.8, 0.8),
+    ),
+    Object(
+      fileName: 'assets/carton.obj',
+      position: Vector3(-0.25, 0.15, 0),
+      scale: Vector3(0.8, 0.8, 0.8),
+    ),
+    Object(
+      fileName: 'assets/carton1.obj',
+      position: Vector3(0.25, 0.58, 0),
+      scale: Vector3(0.8, 0.8, 0.8),
+    ),
+    Object(
+      fileName: 'assets/carton2.obj',
+      position: Vector3(-0.25, 0.58, 0),
+      scale: Vector3(0.8, 0.8, 0.8),
+    ),
+  ]
+  );
+  ```
+  - **Vector3** Vector3 is a class representing a 3-dimensional vector. It is used to define the position, scale, and rotation of objects in the 3D space. Each Vector3 instance has three components: x, y, and z.
+      - **Position:** Defines where the object is located in the 3D space.
+      - **Scale:** Defines the size of the object in the 3D space.
+    
+  ![3D Objects Screen](./resources/3dObj.png)
