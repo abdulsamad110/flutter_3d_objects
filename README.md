@@ -1,7 +1,5 @@
 **[Flutter 3D Objects]**
 
-**Purpose:** A component for the selection of languages. This widget is designed to display a selectable language option with an image and title. It visually indicates whether the option is selected or not.
-
 **Features:**
 - Displays a 3D model of a pallet with cartons.
 - Allows rotating the model left or right.
