@@ -1,10 +1,11 @@
 name: flutter_3d_objects
 description: "A Flutter package project that renders Wavefront's 3D object files."
-version: 1.0.1+1
+version: 1.0.2+1
+author: Abdul Samad
 homepage: https://github.com/abdulsamad110/flutter_3d_objects
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: ">=3.4.3 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
